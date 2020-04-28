@@ -1,0 +1,205 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: creator; Type: TABLE; Schema: public; Owner: themb
+--
+
+CREATE TABLE creator (
+    id integer NOT NULL,
+    oauth character varying,
+    email character varying,
+    gender character varying,
+    age character varying,
+    phone character varying
+);
+
+
+ALTER TABLE creator OWNER TO themb;
+
+--
+-- Name: creator_id_seq; Type: SEQUENCE; Schema: public; Owner: themb
+--
+
+CREATE SEQUENCE creator_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE creator_id_seq OWNER TO themb;
+
+--
+-- Name: creator_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: themb
+--
+
+ALTER SEQUENCE creator_id_seq OWNED BY creator.id;
+
+
+--
+-- Name: event; Type: TABLE; Schema: public; Owner: themb
+--
+
+CREATE TABLE event (
+    id integer NOT NULL,
+    title character varying,
+    date timestamp without time zone,
+    category character varying,
+    img character varying,
+    creator_id integer NOT NULL
+);
+
+
+ALTER TABLE event OWNER TO themb;
+
+--
+-- Name: event_id_seq; Type: SEQUENCE; Schema: public; Owner: themb
+--
+
+CREATE SEQUENCE event_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE event_id_seq OWNER TO themb;
+
+--
+-- Name: event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: themb
+--
+
+ALTER SEQUENCE event_id_seq OWNED BY event.id;
+
+
+--
+-- Name: creator id; Type: DEFAULT; Schema: public; Owner: themb
+--
+
+ALTER TABLE ONLY creator ALTER COLUMN id SET DEFAULT nextval('creator_id_seq'::regclass);
+
+
+--
+-- Name: event id; Type: DEFAULT; Schema: public; Owner: themb
+--
+
+ALTER TABLE ONLY event ALTER COLUMN id SET DEFAULT nextval('event_id_seq'::regclass);
+
+
+--
+-- Data for Name: creator; Type: TABLE DATA; Schema: public; Owner: themb
+--
+
+COPY creator (id, oauth, email, gender, age, phone) FROM stdin;
+1	5ea5b6061cc1ac0c1467d4ee	creator@email.com	mail	28	0987892323
+2	5ea85b356b69bc0c12dec92c	admincreator@email.com	female	32	0312312323
+\.
+
+
+--
+-- Data for Name: event; Type: TABLE DATA; Schema: public; Owner: themb
+--
+
+COPY event (id, title, date, category, img, creator_id) FROM stdin;
+6	Sport jam at fun park	2021-08-06 00:00:00	kids	https://images.unsplash.com/photo-1549451371-64aa98a6f660?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+3	Football on main	2022-01-05 00:00:00	sports	https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+5	Fun day out with the kids	2022-01-04 00:00:00	fun	https://images.unsplash.com/photo-1510743006598-4845616e044f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+7	Conference online	2021-10-06 00:00:00	business	https://images.unsplash.com/photo-1570246159995-57eaeeca884b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+8	What do we have here	2021-11-07 00:00:00	other	https://images.unsplash.com/photo-1530491396055-5aca4203edbf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+10	Another event	2021-08-06 00:00:00	kids	https://images.unsplash.com/photo-1571467667608-50a0842e51ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+13	Lonely world	2022-01-05 00:00:00	sports	https://images.unsplash.com/photo-1571411185070-22fc6e2d0939?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+9	Brand New	2022-01-04 00:00:00	fun	https://images.unsplash.com/photo-1510821733966-497ef399cacd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+11	Tell me some thing	2021-10-06 00:00:00	business	https://images.unsplash.com/photo-1571411185401-e1e1682a2677?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+12	Event four 30	2021-11-07 00:00:00	other	https://images.unsplash.com/photo-1550057899-4c98740dc057?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+1	Another fund event	2022-04-01 00:00:00	funta	https://images.unsplas1510743006598-4845616e044f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60	1
+\.
+
+
+--
+-- Name: creator_id_seq; Type: SEQUENCE SET; Schema: public; Owner: themb
+--
+
+SELECT pg_catalog.setval('creator_id_seq', 2, true);
+
+
+--
+-- Name: event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: themb
+--
+
+SELECT pg_catalog.setval('event_id_seq', 1, true);
+
+
+--
+-- Name: creator creator_oauth_key; Type: CONSTRAINT; Schema: public; Owner: themb
+--
+
+ALTER TABLE ONLY creator
+    ADD CONSTRAINT creator_oauth_key UNIQUE (oauth);
+
+
+--
+-- Name: creator creator_pkey; Type: CONSTRAINT; Schema: public; Owner: themb
+--
+
+ALTER TABLE ONLY creator
+    ADD CONSTRAINT creator_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event event_pkey; Type: CONSTRAINT; Schema: public; Owner: themb
+--
+
+ALTER TABLE ONLY event
+    ADD CONSTRAINT event_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: event event_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: themb
+--
+
+ALTER TABLE ONLY event
+    ADD CONSTRAINT event_creator_id_fkey FOREIGN KEY (creator_id) REFERENCES creator(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
